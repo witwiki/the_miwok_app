@@ -7,11 +7,14 @@ package com.example.android.miwok;
  */
 public class Word {
 
-    // Default translation for the word
+    /** Default translation for the word */
     private String modDefaultTranslation;
 
     /** Miwok translation for the word */
     private String modMiwokTranslation;
+
+    /** Image Resource ID for the word */
+    private int modImageResourceID;
 
     /**
     * Create a new Word object.
@@ -37,5 +40,12 @@ public class Word {
     */
     public String getMiwokTranslation() {
         return modMiwokTranslation;
+    }
+
+    /**
+     * Get the Image Resource ID for the word.
+     */
+    public int getImageResourceID() {
+        return modImageResourceID;
     }
 }
