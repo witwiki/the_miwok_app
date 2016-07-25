@@ -19,4 +19,9 @@
         android:layout_height="wrap_content"
         tools:text="one"/>
 
+    <ImageView
+        android:id="@+id/word_image_view"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+
 </LinearLayout>
