@@ -67,13 +67,20 @@ public class WordAdapter extends ArrayAdapter<Word> {
         // set this text on the number TextView
         numberTextView.setText(currentWord.getDefaultTranslation());
 
-        /**
+
         // Find the ImageView in the list_item.xml layout with the ID list_item_icon
-        ImageView iconView = (ImageView) listItemView.findViewById(R.id.word_image_view);
-        // Get the image resource ID from the current Word object and
-        // set the image to iconView
-        iconView.setImageResource(currentWord.getImageResourceId());
-         */
+        ImageView iconView = (ImageView) listItemView.findViewById(R.id.miwok_image);
+
+        /** Check if an image exists/ is provided or not */
+        if (currentWord.hasImage()){
+            // Get the image resource ID from the current Word object and set the image to iconView
+            iconView.setImageResource(currentWord.getImageResourceID());
+            //  Make sure the view is visible
+            iconView.setVisibility(View.VISIBLE);
+        } else {
+            //  If no image is available then hide visibility of the view
+            iconView.setVisibility(View.GONE);
+        }
 
         // Return the whole list item layout (containing 2 TextViews and an ImageView)
         // so that it can be shown in the ListView

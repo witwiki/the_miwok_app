@@ -9,13 +9,16 @@ public class Word {
 
     //  Variables Declarations
     /** Default translation for the word */
-    private String modDefaultTranslation;
+    private String mDefaultTranslation;
 
     /** Miwok translation for the word */
-    private String modMiwokTranslation;
+    private String mMiwokTranslation;
 
     /** Image Resource ID for the word */
-    private int modImageResourceID;
+    private int mImageResourceID = NO_IMAGE_PROVIDED;
+
+    /** A constant value that represents that no image was provided for this word */
+    private static final int NO_IMAGE_PROVIDED = -1;
 
     //  Constructor(s) Declarations
     /**
@@ -26,8 +29,8 @@ public class Word {
     * @param miwokTranslation is the word in the Miwok language
     */
     public Word(String defaultTranslation, String miwokTranslation) {
-        modDefaultTranslation = defaultTranslation;
-        modMiwokTranslation = miwokTranslation;
+        mDefaultTranslation = defaultTranslation;
+        mMiwokTranslation = miwokTranslation;
     }
 
     /**
@@ -39,9 +42,9 @@ public class Word {
      * @param imageResourceID is the resource ID for an image in the Miwok word
      */
     public Word(String defaultTranslation, String miwokTranslation, int imageResourceID) {
-        modDefaultTranslation = defaultTranslation;
-        modMiwokTranslation = miwokTranslation;
-        modImageResourceID = imageResourceID;
+        mDefaultTranslation = defaultTranslation;
+        mMiwokTranslation = miwokTranslation;
+        mImageResourceID = imageResourceID;
     }
 
     //  Getters Declarations
@@ -49,20 +52,27 @@ public class Word {
     * Get the default translation of the word.
     */
     public String getDefaultTranslation() {
-        return modDefaultTranslation;
+        return mDefaultTranslation;
     }
 
     /**
     * Get the Miwok translation of the word.
     */
     public String getMiwokTranslation() {
-        return modMiwokTranslation;
+        return mMiwokTranslation;
     }
 
     /**
      * Get the Image Resource ID for the word.
      */
     public int getImageResourceID() {
-        return modImageResourceID;
+        return mImageResourceID;
+    }
+
+    /**
+     * This method returns a boolean on whether or not an image exists
+     */
+    public boolean hasImage() {
+        return mImageResourceID != NO_IMAGE_PROVIDED;
     }
 }
