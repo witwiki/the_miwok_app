@@ -7,6 +7,7 @@ package com.example.android.miwok;
  */
 public class Word {
 
+    //  Variables Declarations
     /** Default translation for the word */
     private String modDefaultTranslation;
 
@@ -16,8 +17,9 @@ public class Word {
     /** Image Resource ID for the word */
     private int modImageResourceID;
 
+    //  Constructor(s) Declarations
     /**
-    * Create a new Word object.
+    * Create a new Word object. (1st Constructor)
     *
     * @param defaultTranslation is the word in a language that the user is already familiar with
     *                           (such as English)
@@ -28,6 +30,21 @@ public class Word {
         modMiwokTranslation = miwokTranslation;
     }
 
+    /**
+     * Create a new Word object. (2nd Constructor)
+     *
+     * @param defaultTranslation is the word in a language that the user is already familiar with
+     *                           (such as English)
+     * @param miwokTranslation is the word in the Miwok language
+     * @param imageResourceID is the resource ID for an image in the Miwok word
+     */
+    public Word(String defaultTranslation, String miwokTranslation, int imageResourceID) {
+        modDefaultTranslation = defaultTranslation;
+        modMiwokTranslation = miwokTranslation;
+        modImageResourceID = imageResourceID;
+    }
+
+    //  Getters Declarations
     /**
     * Get the default translation of the word.
     */
