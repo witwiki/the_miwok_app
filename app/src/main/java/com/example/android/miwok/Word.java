@@ -18,7 +18,7 @@ public class Word {
     private int mImageResourceID = NO_IMAGE_PROVIDED;
 
     /** A constant value that represents that no image was provided for this word */
-    private static final int NO_IMAGE_PROVIDED = -1;
+    private static final int NO_IMAGE_PROVIDED = -1;            //  "-1" is used as it is out of scope of all resource IDs
 
     //  Constructor(s) Declarations
     /**
