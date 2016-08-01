@@ -1,13 +1,19 @@
 package com.example.android.miwok;
 
 import android.app.Activity;
+import android.media.MediaPlayer;
+import android.provider.MediaStore;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ListView;
 
 import java.util.ArrayList;
 
 public class NumbersActivity extends AppCompatActivity {
+
+    private MediaPlayer m_player;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -48,7 +54,16 @@ public class NumbersActivity extends AppCompatActivity {
          */
         listView.setAdapter(adapter);
 
+        //  Create an instance of the media player
+        m_player = MediaPlayer.create(this, R.raw.number_one);
 
+        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                m_player.start();
+
+            }
+        });
         /*
         // We define and find the root View so child views can be added to it
         LinearLayout rootView = (LinearLayout) findViewById(R.id.rootView);

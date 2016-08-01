@@ -1,6 +1,7 @@
 package com.example.android.miwok;
 
 import android.app.Activity;
+import android.media.MediaPlayer;
 import android.support.v4.content.ContextCompat;
 import android.view.ContextMenu;
 import android.view.LayoutInflater;
@@ -75,7 +76,7 @@ public class WordAdapter extends ArrayAdapter<Word> {
 
 
         // Find the ImageView in the list_item.xml layout with the ID list_item_icon
-        ImageView iconView = (ImageView) listItemView.findViewById(R.id.miwok_image);
+        ImageView iconView = (ImageView) listItemView.findViewById(R.id.miwok_image_view);
 
         /** Check if an image exists/ is provided or not */
         if (currentWord.hasImage()){

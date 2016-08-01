@@ -31,6 +31,9 @@ public class MainActivity extends AppCompatActivity {
         // Set the content of the activity to use the activity_main.xml layout file
         setContentView(R.layout.activity_main);
 
+        // Force set title in the action bar
+        //setTitle("Miwok");
+
         // Find the View that shows the numbers, colors, family and phrases categories
         TextView numbers = (TextView) findViewById(R.id.numbers);
         TextView colors = (TextView) findViewById(R.id.colors);
