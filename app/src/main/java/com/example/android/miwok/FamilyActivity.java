@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.media.MediaPlayer;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
@@ -65,6 +66,8 @@ public class FamilyActivity extends AppCompatActivity {
 
                 //  Get the {@link Word} object at the given position clicked by the user
                 Word word = words.get(position);
+
+                Log.v("FamilyActivity", "Current word: " + word);
 
                 //  Create an instance of the media player
                 m_player = MediaPlayer.create(FamilyActivity.this, word.getmAudioResourceId());
