@@ -1,6 +1,8 @@
 package com.example.android.miwok;
 
 import android.app.Activity;
+import android.content.Context;
+import android.media.AudioManager;
 import android.media.MediaPlayer;
 import android.provider.MediaStore;
 import android.support.v7.app.AppCompatActivity;
@@ -17,6 +19,9 @@ public class NumbersActivity extends AppCompatActivity {
     /** Declaration of the global instance variable MediaPlayer */
     private MediaPlayer m_player;
 
+    /** Audio focus during audio file operations */
+    private AudioManager audioManager;
+
     /**
      * This listener gets triggered when the {@link MediaPlayer} has completed
      * playing the audio file.
@@ -29,10 +34,40 @@ public class NumbersActivity extends AppCompatActivity {
         }
     };
 
+    /**
+     * This listener is activated whenever the audio focus state is changed.
+     * For example, having a gain or loss of audio focus due to other running apps
+     */
+    private AudioManager.OnAudioFocusChangeListener mOnAudioFocusChangeListener = new AudioManager.OnAudioFocusChangeListener(){
+        @Override
+        public void onAudioFocusChange(int focusChange) {
+            if (focusChange == AudioManager.AUDIOFOCUS_LOSS_TRANSIENT ||
+                    focusChange == AudioManager.AUDIOFOCUS_LOSS_TRANSIENT_CAN_DUCK) {
+
+                /**
+                 *  Here, the "LOSS_TRANSIENT" scenario means we've lost sound for a short
+                 *  time period. Whilst, "LOSS_TRANSIENT_CAN_DUCK" scenario means can run
+                 *  but on lower output sounds.
+                 */
+                m_player.pause();
+                m_player.seekTo(0);
+            } else if (focusChange == AudioManager.AUDIOFOCUS_GAIN){
+                //  Audio focus has been gained/regained and we start the audio file from the beginning
+                m_player.start();
+            } else if (focusChange == AudioManager.AUDIOFOCUS_LOSS){
+                //  Audio focus has been lost so we stop playback and release/clean up resources
+                releaseMediaPlayer();
+            }
+        }
+    };
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_wordslist);
+
+        //  Setup and create an {@link AudioManager} instance to request audio focus
+        audioManager = (AudioManager) getSystemService(Context.AUDIO_SERVICE);
 
         //  Create a list of words based on Custom Class Word.java
         final ArrayList<Word> words = new ArrayList<Word>();
@@ -84,6 +119,17 @@ public class NumbersActivity extends AppCompatActivity {
                 Word word = words.get(position);
 
                 Log.v("NumbersActivity", "Current word: " + word);
+
+                /** Requests audio focus to play the audio file. Playing an audio would
+                 * require a short amount of time so, we called AUDIOFOCUS_GAIN_TRANSIENT
+                 * with the request for audio focus.
+                 * */
+                int requestAF = audioManager.requestAudioFocus(mOnAudioFocusChangeListener,
+                        AudioManager.STREAM_MUSIC, AudioManager.AUDIOFOCUS_GAIN_TRANSIENT);
+
+                if (requestAF == AudioManager.AUDIOFOCUS_REQUEST_GRANTED){
+                    //  Audio focus now exists and is granted
+                }
 
                 //  Create an instance of the media player
                 m_player = MediaPlayer.create(NumbersActivity.this, word.getmAudioResourceId());
@@ -152,6 +198,13 @@ public class NumbersActivity extends AppCompatActivity {
             // setting the media player to null is an easy way to tell that the media player
             // is not configured to play an audio file at the moment.
             m_player = null;
+
+            /**  Whether or not audio focus is granted, we unregister the
+             *  AudioFocusChangeListener to avoid any callbacks
+             */
+            audioManager.abandonAudioFocus(mOnAudioFocusChangeListener);
         }
     }
+
+
 }
